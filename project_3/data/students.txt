@@ -1,0 +1,1 @@
+1001|Alice|Uwimana|Computer Science|2|2|CS101|Intro to Programming|85.50|100.00|MATH201|Discrete Math|78.00|100.00
