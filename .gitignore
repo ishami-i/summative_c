@@ -1,3 +1,6 @@
+# ==========================================
+# C / C++ Build Artifacts
+# ==========================================
 # Prerequisites
 *.d
 
@@ -22,7 +25,7 @@
 *.la
 *.lo
 
-# Shared objects (inc. Windows DLLs)
+# Shared objects (inc. Windows DLLs & macOS dylibs)
 *.dll
 *.so
 *.so.*
@@ -36,11 +39,17 @@
 *.x86_64
 *.hex
 
+# Common extensionless binaries (uncomment or add your binary names)
+# a.out
+# main
+# test
+
 # Debug files
 *.dSYM/
 *.su
 *.idb
 *.pdb
+*.dwo
 
 # Kernel Module Compile Results
 *.mod*
@@ -51,5 +60,39 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-# debug information files
-*.dwo
+# Common CMake / Make / Build folders (anywhere in repo)
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+Makefile.in
+
+# ==========================================
+# Bash & Shell Artifacts
+# ==========================================
+# Shell history & temporary swap files
+.bash_history
+.zsh_history
+*.swp
+*.swo
+*~
+
+# ==========================================
+# macOS System Files
+# ==========================================
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+
+# Thumbnails & Metadata
+._*
+
+# Spotlight & Volume files
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
