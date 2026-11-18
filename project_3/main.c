@@ -1,49 +1,56 @@
 #include "main.h"
 
-// Define the global file pointers
-FILE *student_file = NULL;
-FILE *course_file = NULL;
-FILE *grade_file = NULL;
+/* Menu table: each entry pairs a label with the function that handles it. */
+static const MenuItem MENU[] = {
+    { "Register a new student",              register_student },
+    { "Display all students",                display_all_students },
+    { "View detailed student information",   view_student },
+    { "Update student information",          update_student },
+    { "Delete a student record",             delete_student },
+    { "Add a course to a student",           add_course },
+    { "Update marks for a course",           update_marks },
+    { "Display a student's performance",     display_student_performance },
+    { "Search students",                     search_students },
+    { "Sort students",                       sort_students },
+    { "Generate academic report",            generate_report },
+    { "Save records to file",                save_records },
+    { "Load records from file",              load_records },
+};
+#define MENU_SIZE ((int)(sizeof MENU / sizeof MENU[0]))
 
-int main() {
-    // Open the files inside a function
-    student_file = fopen("data/students.txt", "rb+");
-    course_file = fopen("data/courses.txt", "rb+");
-    grade_file = fopen("data/grades.txt", "rb+");
+static void print_menu(const StudentDB *db) {
+    printf("\n=========== Student Academic Records System ===========\n");
+    for (int i = 0; i < MENU_SIZE; i++) printf("  %2d. %s\n", i + 1, MENU[i].label);
+    printf("   0. Exit\n");
+    printf("-------------------------------------------------------\n");
+    printf("Students in memory: %d%s\n", db->count, db->modified ? "   (unsaved changes)" : "");
+}
 
-    if (!student_file || !course_file || !grade_file) {
-        printf("Error opening one or more files.\n");
+int main(void) {
+    StudentDB db;
+
+    if (db_init(&db) != OK) {
+        fprintf(stderr, "Fatal: %s.\n", status_message(ERR_MEMORY));
         return 1;
     }
-    /*
-    the choices avaiable to the user are with function pointers and the user can choose to perform any of the following operations:
-    Registering students.
 
-Adding and updating course records.
+    /* load previously saved records; a missing file just means a fresh start */
+    Status st = read_records_file(&db);
+    if (st != OK && st != ERR_NOT_FOUND)
+        printf("Starting with an empty database. Note: saving will overwrite %s.\n", DATA_FILE);
 
-Displaying student information.
+    for (;;) {
+        int choice;
+        print_menu(&db);
+        if (!read_int("Select an option: ", 0, MENU_SIZE, &choice)) break;   /* EOF = exit */
+        if (choice == 0) break;
+        MENU[choice - 1].handler(&db);
+    }
 
-Deleting student records.
+    if (db.modified && confirm("You have unsaved changes. Save before exiting? (y/n): "))
+        save_records(&db);
 
-Searching for students.
-
-Sorting student records.
-
-Calculating academic averages.
-
-Generating academic reports.
-
-Saving records to files.
-
-Loading records from files.
-
-Validating user input.
-    */
-
-    // Close files before exiting
-    fclose(student_file);
-    fclose(course_file);
-    fclose(grade_file);
-
+    db_free(&db);
+    printf("Goodbye!\n");
     return 0;
 }

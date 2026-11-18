@@ -1,0 +1,366 @@
+SAMPLE RUN EVIDENCE (inputs are echoed because stdin is a script, not a keyboard)
+Built with: gcc -std=c11 -Wall -Wextra -Wpedantic  |  tested with -fsanitize=address,undefined (no errors, no leaks)
+
+######## SESSION 1: CRUD, validation, search, sort, report, save ########
+Loaded 6 student record(s) from data/students.txt.
+
+Students in memory: 6
+Select an option: 2
+
+--- All registered students ---
+
+ID         First name     Last name      Programme                Year Courses   Average
+---------------------------------------------------------------------------------
+1001       Alice          Uwase          Computer Science            2       3    75.17%
+1002       Brian          Mugisha        Computer Science            2       3    45.17%
+1003       Chantal        Ingabire       Electrical Engineering      3       3    83.83%
+1004       David          Niyonzima      Electrical Engineering      1       2    50.00%
+1005       Esther         Kamanzi        Business Administration     4       2    58.00%
+1006       Fabrice        Habimana       Business Administration     1       0       N/A
+(6 students)
+
+Students in memory: 6
+Select an option: 99
+  Invalid input. Enter a whole number between 0 and 13.
+Select an option: abc
+  Invalid input. Enter a whole number between 0 and 13.
+Select an option: 3
+
+--- View student details ---
+Student ID: 1003
+
+------------------------------------------------------------
+  Student ID      : 1003
+  Name            : Chantal Ingabire
+  Programme       : Electrical Engineering
+  Year of study   : 3
+  Courses         : 3
+  Overall average : 83.83%
+  Code     Course                        Marks      Max
+  EE201    Circuit Analysis              88.00   100.00
+  MA101    Discrete Mathematics          91.00   100.00
+  PH110    Physics I                     72.50   100.00
+
+Students in memory: 6
+Select an option: 3
+
+--- View student details ---
+Student ID: 9999
+Error: no student with ID 9999.
+
+Students in memory: 6
+Select an option: 1
+
+--- Register a new student ---
+Student ID (positive whole number): 1001
+Error: a student with ID 1001 already exists.
+
+Students in memory: 6
+Select an option: 1
+
+--- Register a new student ---
+Student ID (positive whole number): 1007
+First name: Grace
+Last name: Mutoni
+Programme of study: Computer Science
+Year of study (1-7): 9
+  Invalid input. Enter a whole number between 1 and 7.
+Year of study (1-7): 3
+Number of courses to register now (0-20): 2
+Course 1 of 2
+  Course code (e.g. CS101): CS101
+  Course name: Programming in C
+  Maximum marks: 100
+  Marks obtained (0 - 100): 120
+  Invalid input. Enter a number between 0 and 100.
+  Marks obtained (0 - 100): 85.5
+Course 2 of 2
+  Course code (e.g. CS101): CS101
+  This student already has course CS101.
+  Course code (e.g. CS101): CS201
+  Course name: Algorithms
+  Maximum marks: 50
+  Marks obtained (0 - 50): 42.5
+Student 1007 (Grace Mutoni) registered successfully.
+
+Students in memory: 7   (unsaved changes)
+Select an option: 6
+
+--- Add a course to a student ---
+Student ID: 1006
+  Course code (e.g. CS101): MA101
+  Course name: Discrete Mathematics
+  Maximum marks: 100
+  Marks obtained (0 - 100): 60
+Course MA101 added to student 1006.
+
+Students in memory: 7   (unsaved changes)
+Select an option: 7
+
+--- Update course marks ---
+Student ID: 1006
+
+Academic performance: Fabrice Habimana (ID 1006, Business Administration)
+  Code     Course                        Marks      Max  Percent  Result
+  MA101    Discrete Mathematics          60.00   100.00   60.00%  PASS
+  Overall average: 60.00% -> PASSING
+Course code to update: MA101
+New marks (0 - 100): 150
+  Invalid input. Enter a number between 0 and 100.
+New marks (0 - 100): 75
+Marks for MA101 updated to 75.00 / 100.00.
+
+Students in memory: 7   (unsaved changes)
+Select an option: 8
+
+--- Student academic performance ---
+Student ID: 1006
+
+Academic performance: Fabrice Habimana (ID 1006, Business Administration)
+  Code     Course                        Marks      Max  Percent  Result
+  MA101    Discrete Mathematics          75.00   100.00   75.00%  PASS
+  Overall average: 75.00% -> PASSING
+
+Students in memory: 7   (unsaved changes)
+Select an option: 4
+
+--- Update student information ---
+Student ID to update: 1002
+(The student ID cannot be changed.)
+First name [Brian] (Enter = keep): 
+Last name [Mugisha] (Enter = keep): 
+Programme of study [Computer Science] (Enter = keep): Information Systems
+Year of study (1-7) [2] (Enter = keep): 
+Student 1002 updated.
+
+Students in memory: 7   (unsaved changes)
+Select an option: 5
+
+--- Delete a student ---
+Student ID to delete: 5000
+Error: no student with ID 5000.
+
+Students in memory: 7   (unsaved changes)
+Select an option: 5
+
+--- Delete a student ---
+Student ID to delete: 1004
+About to delete 1004: David Niyonzima (Electrical Engineering)
+Are you sure? (y/n): y
+Student 1004 deleted.
+
+Students in memory: 6   (unsaved changes)
+Select an option: 9
+
+--- Search students ---
+Choice: 1
+Student ID: 1001
+
+1 matching student(s):
+
+------------------------------------------------------------
+  Student ID      : 1001
+  Name            : Alice Uwase
+  Programme       : Computer Science
+  Year of study   : 2
+  Courses         : 3
+  Overall average : 75.17%
+  Code     Course                        Marks      Max
+  CS101    Programming in C              78.50   100.00
+  CS102    Data Structures               65.00   100.00
+  MA101    Discrete Mathematics          82.00   100.00
+
+Students in memory: 6   (unsaved changes)
+Select an option: 9
+
+--- Search students ---
+Choice: 2
+Name (or part of it): mug
+
+1 matching student(s):
+
+------------------------------------------------------------
+  Student ID      : 1002
+  Name            : Brian Mugisha
+  Programme       : Information Systems
+  Year of study   : 2
+  Courses         : 3
+  Overall average : 45.17%
+  Code     Course                        Marks      Max
+  CS101    Programming in C              45.00   100.00
+  CS102    Data Structures               52.00   100.00
+  MA101    Discrete Mathematics          38.50   100.00
+
+Students in memory: 6   (unsaved changes)
+Select an option: 9
+
+--- Search students ---
+Choice: 3
+Programme (or part of it): computer
+
+2 matching student(s):
+
+------------------------------------------------------------
+  Student ID      : 1001
+  Name            : Alice Uwase
+  Programme       : Computer Science
+  Year of study   : 2
+  Courses         : 3
+  Overall average : 75.17%
+  Code     Course                        Marks      Max
+  CS101    Programming in C              78.50   100.00
+  CS102    Data Structures               65.00   100.00
+  MA101    Discrete Mathematics          82.00   100.00
+
+------------------------------------------------------------
+  Student ID      : 1007
+  Name            : Grace Mutoni
+  Programme       : Computer Science
+  Year of study   : 3
+  Courses         : 2
+  Overall average : 85.33%
+  Code     Course                        Marks      Max
+  CS101    Programming in C              85.50   100.00
+  CS201    Algorithms                    42.50    50.00
+
+Students in memory: 6   (unsaved changes)
+Select an option: 10
+
+--- Sort students ---
+Sort by: 3
+Order (1 = ascending, 2 = descending): 2
+Students sorted by overall average (descending).
+
+ID         First name     Last name      Programme                Year Courses   Average
+---------------------------------------------------------------------------------
+1007       Grace          Mutoni         Computer Science            3       2    85.33%
+1003       Chantal        Ingabire       Electrical Engineering      3       3    83.83%
+1001       Alice          Uwase          Computer Science            2       3    75.17%
+1006       Fabrice        Habimana       Business Administration     1       1    75.00%
+1005       Esther         Kamanzi        Business Administration     4       2    58.00%
+1002       Brian          Mugisha        Information Systems         2       3    45.17%
+(6 students)
+
+Students in memory: 6   (unsaved changes)
+Select an option: 10
+
+--- Sort students ---
+Sort by: 1
+Order (1 = ascending, 2 = descending): 1
+Students sorted by student ID (ascending).
+
+ID         First name     Last name      Programme                Year Courses   Average
+---------------------------------------------------------------------------------
+1001       Alice          Uwase          Computer Science            2       3    75.17%
+1002       Brian          Mugisha        Information Systems         2       3    45.17%
+1003       Chantal        Ingabire       Electrical Engineering      3       3    83.83%
+1005       Esther         Kamanzi        Business Administration     4       2    58.00%
+1006       Fabrice        Habimana       Business Administration     1       1    75.00%
+1007       Grace          Mutoni         Computer Science            3       2    85.33%
+(6 students)
+
+Students in memory: 6   (unsaved changes)
+Select an option: 2
+
+--- All registered students ---
+
+ID         First name     Last name      Programme                Year Courses   Average
+---------------------------------------------------------------------------------
+1001       Alice          Uwase          Computer Science            2       3    75.17%
+1002       Brian          Mugisha        Information Systems         2       3    45.17%
+1003       Chantal        Ingabire       Electrical Engineering      3       3    83.83%
+1005       Esther         Kamanzi        Business Administration     4       2    58.00%
+1006       Fabrice        Habimana       Business Administration     1       1    75.00%
+1007       Grace          Mutoni         Computer Science            3       2    85.33%
+(6 students)
+
+Students in memory: 6   (unsaved changes)
+Select an option: 11
+
+Total registered students            : 6
+Total courses registered (all)       : 14
+Overall average performance          : 69.00%
+Highest average                      : 85.33%  (Grace Mutoni, ID 1007)
+Lowest average                       : 45.17%  (Brian Mugisha, ID 1002)
+Students passing (average >= 50%)   : 5
+Students failing (average <  50%)   : 1
+
+Average performance per course:
+  Code     Course                      Students   Average       Passed
+  CS101    Programming in C                   3    69.67%      2/3    
+  CS102    Data Structures                    2    58.50%      2/2    
+  MA101    Discrete Mathematics               4    71.62%      3/4    
+  EE201    Circuit Analysis                   1    88.00%      1/1    
+  PH110    Physics I                          1    72.50%      1/1    
+  BA301    Marketing                          1    67.00%      1/1    
+  BA305    Accounting                         1    49.00%      0/1    
+  CS201    Algorithms                         1    85.00%      1/1    
+
+Students per programme of study:
+  Computer Science               2
+  Information Systems            1
+  Electrical Engineering         1
+  Business Administration        2
+
+Students in memory: 6   (unsaved changes)
+Select an option: 12
+
+--- Save records ---
+Saved 6 student record(s) to data/students.txt.
+
+Students in memory: 6
+Select an option: 0
+Goodbye!
+
+######## SESSION 2: restart -> records loaded automatically from the file ########
+Loaded 6 student record(s) from data/students.txt.
+
+Students in memory: 6
+Select an option: 2
+
+--- All registered students ---
+
+ID         First name     Last name      Programme                Year Courses   Average
+---------------------------------------------------------------------------------
+1001       Alice          Uwase          Computer Science            2       3    75.17%
+1002       Brian          Mugisha        Information Systems         2       3    45.17%
+1003       Chantal        Ingabire       Electrical Engineering      3       3    83.83%
+1005       Esther         Kamanzi        Business Administration     4       2    58.00%
+1006       Fabrice        Habimana       Business Administration     1       1    75.00%
+1007       Grace          Mutoni         Computer Science            3       2    85.33%
+(6 students)
+
+Students in memory: 6
+Select an option: 3
+
+--- View student details ---
+Student ID: 1006
+
+------------------------------------------------------------
+  Student ID      : 1006
+  Name            : Fabrice Habimana
+  Programme       : Business Administration
+  Year of study   : 1
+  Courses         : 1
+  Overall average : 75.00%
+  Code     Course                        Marks      Max
+  MA101    Discrete Mathematics          75.00   100.00
+
+Students in memory: 6
+Select an option: 0
+Goodbye!
+
+######## FILE ERROR HANDLING: corrupted data file ########
+Error: could not load data/students.txt (line 4: invalid marks).
+Starting with an empty database. Note: saving will overwrite data/students.txt.
+
+
+######## FILE ERROR HANDLING: missing data file ########
+No saved data file (data/students.txt) found yet.
+
+######## MEMORY: 500 students added, 489 deleted (realloc grow + shrink), ASan/UBSan clean ########
+Total registered students            : 11
+Total courses registered (all)       : 11
+Overall average performance          : 91.00%
+Highest average                      : 96.00%  (F500 L500, ID 500)
+Lowest average                       : 86.00%  (F490 L490, ID 490)

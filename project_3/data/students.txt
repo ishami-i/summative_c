@@ -1,1 +1,22 @@
-1001|Alice|Uwimana|Computer Science|2|2|CS101|Intro to Programming|85.50|100.00|MATH201|Discrete Math|78.00|100.00
+STUDENT_DB_V1
+6
+S|1002|Brian|Mugisha|Computer Science|2|3
+C|CS101|Programming in C|45.00|100.00
+C|CS102|Data Structures|52.00|100.00
+C|MA101|Discrete Mathematics|38.50|100.00
+S|1004|David|Niyonzima|Electrical Engineering|1|2
+C|EE201|Circuit Analysis|30.00|50.00
+C|PH110|Physics I|20.00|50.00
+S|1005|Esther|Kamanzi|Business Administration|4|2
+C|BA301|Marketing|67.00|100.00
+C|BA305|Accounting|49.00|100.00
+S|1001|Alice|Uwase|Computer Science|2|3
+C|CS101|Programming in C|78.50|100.00
+C|CS102|Data Structures|65.00|100.00
+C|MA101|Discrete Mathematics|82.00|100.00
+S|1003|Chantal|Ingabire|Electrical Engineering|3|3
+C|EE201|Circuit Analysis|88.00|100.00
+C|MA101|Discrete Mathematics|91.00|100.00
+C|PH110|Physics I|72.50|100.00
+S|1006|Fabrice|Habimana|Business Administration|1|1
+C|CS105|Programming in c|89.00|100.00
