@@ -1,7 +1,18 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #define MAX_COURSES 10
+#define MAX_STUDENTS 100
+#define PASSING_GRADE 50.0
+
+// Declare file pointers as extern so multiple .c files can share them
+extern FILE *student_file;
+extern FILE *course_file;
+extern FILE *grade_file;
 
 // Define course first
 typedef struct {
@@ -26,5 +37,9 @@ typedef struct {
     int number_of_courses;
     academic_performance performance;
 } student;
+// functions 
+void register_student(student *students, int *num_students, FILE *student_file, FILE *course_file, FILE *grade_file);
+int update_student(student *students, int *num_students, FILE *student_file, FILE *course_file, FILE *grade_file);
+int delete_student(student *students, int *num_students, FILE *student_file, FILE *course_file, FILE *grade_file);
 
 #endif // MAIN_H
