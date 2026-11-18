@@ -11,7 +11,7 @@ An interactive Bash application that monitors CPU, memory, disk, processes and u
 Every script in the project folder must be executable, otherwise the menu cannot launch it. After copying the files, run this **once**, from inside the project folder:
 
 ```bash
-chmod +x *
+chmod +x *.sh
 ```
 
 Then start the application:
@@ -19,15 +19,6 @@ Then start the application:
 ```bash
 ./main.sh
 ```
-
-If you skip this step, the menu shows:
-
-```
-Error: system_info.sh is not executable. Run:  chmod +x *
-```
-
-> `chmod +x *` also marks `project_description.md` and the sample files as executable. This is harmless. If you prefer to limit it to scripts, use `chmod +x *.sh`.
-
 You can confirm the permissions with `ls -l`: every `.sh` file should show `-rwxr-xr-x`.
 
 ---
@@ -146,39 +137,7 @@ The menu loops until option 10 is chosen. Monitors (options 2–4) refresh every
 
 ---
 
-## 8. Activity log
-
-Location: `activity.log` (same folder as the scripts). Format: `timestamp [LEVEL] message`.
-It records application start/exit, every menu selection, monitoring start/stop and samples, warnings, process searches and terminations (including blocked attempts), report generation, history views, and log clearing.
-
-Sample (`sample_activity.log`):
-
-```
-2026-11-18 10:21:26 UTC [INFO] Application started
-2026-11-18 10:21:26 UTC [INFO] Menu option 1 selected
-2026-11-18 10:21:26 UTC [INFO] Displayed system information
-2026-11-18 10:21:33 UTC [INFO] CPU monitoring started (threshold 1%)
-2026-11-18 10:21:34 UTC [INFO] CPU usage 3.2%, load average: 0.15, 0.10, 0.05
-2026-11-18 10:21:34 UTC [WARNING] CPU utilization above 1% (current 3.2%). Top processes:
-2026-11-18 10:21:43 UTC [INFO] Memory: Total: 3992MB | Used: 183MB | Available: 3809MB | Utilization: 4.6%
-2026-11-18 10:21:52 UTC [WARNING] Disk utilization above 30% on /dev/vda (/): 40%
-2026-11-18 10:22:24 UTC [WARNING] Terminate requested for PID 99999999 (does not exist)
-2026-11-18 10:22:30 UTC [WARNING] Termination of PID 1 blocked: PID 1 is a core system process
-2026-11-18 10:22:41 UTC [INFO] Process sleep (PID 1092) terminated (SIGTERM)
-2026-11-18 10:22:54 UTC [INFO] Health report generated: /home/user/reports/health_report_20261118_102254.txt
-```
-
-The full sample is in `sample_activity.log`.
-
----
-
-## 9. Sample health report
-
-A full example is in `sample_health_report.txt`. Reports are named `health_report_YYYYMMDD_HHMMSS.txt` and contain a generation timestamp, CPU details and current usage, load average, top processes, memory (including utilization %), disk usage, and uptime.
-
----
-
-## 10. Test plan and evidence (screenshots to capture)
+## 8. Test plan and evidence (screenshots to capture)
 
 Run on Linux, after `chmod +x *`, from `./main.sh`:
 
@@ -203,7 +162,7 @@ Run on Linux, after `chmod +x *`, from `./main.sh`:
 
 ---
 
-## 11. Project requirements coverage
+## 9. Project requirements coverage
 
 | Requirement | Where it is met |
 |---|---|
