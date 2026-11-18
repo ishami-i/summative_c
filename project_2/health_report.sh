@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Generates a timestamped system health report in a user-selected directory.
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
@@ -30,33 +30,36 @@ write_report() {
     echo "====== System Health Report ========"
     echo "Generated on: $(timestamp)"
     echo "Hostname: $(hostname)"
+    echo "Operating System: $(get_os_info)"
     echo "------------------------------------"
     echo "CPU Information:"
-    if command -v lscpu >/dev/null 2>&1; then
-        lscpu | grep -E 'Model name|^CPU\(s\)|Thread|Core|Socket|MHz'
-    else
-        echo "(lscpu not available)"
-    fi
+    print_cpu_info
     echo "Current CPU usage: $(get_cpu_usage)%"
-    echo "Load average:$(uptime | awk -F'load average:' '{print $2}')"
+    echo "Load average: $(get_load_avg)"
     echo "Top 5 CPU-consuming processes:"
     top_cpu_processes
     echo "------------------------------------"
     echo "Memory Information:"
-    free -h
-    get_memory_stats && echo "Memory utilization: ${MEM_PCT}%"
+    if get_memory_stats; then
+        echo "Total: ${MEM_TOTAL}MB | Used: ${MEM_USED}MB | Available: ${MEM_AVAIL}MB"
+        echo "Memory utilization: ${MEM_PCT}%"
+    else
+        echo "(memory statistics unavailable)"
+    fi
     echo "------------------------------------"
     echo "Disk Usage Information:"
-    df -h -x tmpfs -x devtmpfs -x squashfs --output=source,fstype,size,used,avail,pcent,target
+    printf '%-28s %8s %8s %8s %5s  %s\n' Filesystem Size Used Avail 'Use%' Mount
+    list_filesystems | awk -F'\t' '{ printf "%-28s %8s %8s %8s %4s%%  %s\n", $1, $2, $3, $4, $5, $6 }'
     echo "------------------------------------"
-    echo "System Uptime: $(uptime -p 2>/dev/null || uptime)"
+    echo "System Uptime: $(get_uptime)"
     echo "===================================="
 }
 
 generate_report() {
-    require_cmd free df uptime ps awk || return 1
+    require_cmd df uptime ps awk || return 1
     choose_directory || return 1
-    local file="$REPORT_DIR/health_report_$(date '+%Y%m%d_%H%M%S').txt"
+    local file
+    file="$REPORT_DIR/health_report_$(date '+%Y%m%d_%H%M%S').txt"
     echo "Generating health report at $file ..."
     if write_report > "$file" 2>/dev/null; then
         echo "Report saved: $file"

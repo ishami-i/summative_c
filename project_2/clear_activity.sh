@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Clears the activity log after confirmation.
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 

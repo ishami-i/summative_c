@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Monitors CPU utilization, lists heavy processes, warns above a user threshold.
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
 monitor_cpu() {
-    require_cmd ps awk uptime xargs || return 1
+    require_cmd ps awk uptime sort || return 1
     read_threshold "CPU" || return 1
 
     log_event INFO "CPU monitoring started (threshold ${THRESHOLD}%)"
@@ -13,7 +13,7 @@ monitor_cpu() {
     local usage load ts
     while true; do
         usage=$(get_cpu_usage) || return 1
-        load=$(uptime | awk -F'load average:' '{print $2}' | xargs)
+        load=$(get_load_avg)
         ts=$(timestamp)
 
         echo "$ts - CPU Usage: ${usage}% | Load Average: $load"

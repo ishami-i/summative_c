@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Displays the activity log (last 50 entries, or everything on request).
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 

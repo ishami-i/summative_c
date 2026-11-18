@@ -1,9 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Monitors memory utilization and warns above a user-defined threshold.
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
 monitor_memory() {
-    require_cmd free awk || return 1
+    require_cmd awk || return 1
+    get_memory_stats || return 1            # fail early on unsupported systems
     read_threshold "memory" || return 1
 
     log_event INFO "Memory monitoring started (threshold ${THRESHOLD}%)"

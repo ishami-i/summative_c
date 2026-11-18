@@ -1,14 +1,15 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Process management. Usage: ./process_management.sh view | terminate
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
 # Processes that must never be terminated by this tool
-PROTECTED_NAMES=(systemd init kthreadd sshd dbus-daemon login Xorg gdm lightdm NetworkManager)
+PROTECTED_NAMES=(systemd init kthreadd sshd dbus-daemon login Xorg gdm lightdm NetworkManager
+                 launchd kernel_task WindowServer loginwindow Dock Finder SystemUIServer)
 
 # Show the 10 busiest processes
 list_processes() {
     echo "====== Running Processes (top 10 by CPU) ========"
-    ps -eo pid,ppid,user,%cpu,%mem,comm --sort=-%cpu | head -n 11
+    ps_sorted | head -n 11
     echo "=================================================="
     log_event INFO "Viewed running processes"
 }
@@ -22,7 +23,7 @@ search_process() {
 
         if [[ "$term" =~ ^[0-9]+$ ]]; then
             if ps -p "$term" >/dev/null 2>&1; then
-                ps -p "$term" -o pid,ppid,user,%cpu,%mem,etime,comm
+                ps_detail "$term"
                 log_event INFO "Searched for PID $term (found)"
             else
                 echo "No process found with PID $term."
@@ -30,7 +31,7 @@ search_process() {
             fi
         else
             lower=$(tr '[:upper:]' '[:lower:]' <<< "$term")
-            matches=$(ps -eo pid,ppid,user,%cpu,%mem,etime,comm |
+            matches=$(ps -A -o pid,ppid,user,%cpu,%mem,etime,$PS_COMM | sed '1s/UCOMM/COMMAND/' |
                 awk -v t="$lower" 'NR==1 || (index(tolower($7), t) && $7 != "awk" && $7 != "ps")')
             if (( $(wc -l <<< "$matches") > 1 )); then
                 echo "$matches"
@@ -46,7 +47,7 @@ search_process() {
 # protection_reason PID -> prints why a process is protected and returns 0; returns 1 if it is safe to kill
 protection_reason() {
     local pid="$1" name uid ppid n
-    name=$(ps -p "$pid" -o comm= 2>/dev/null | xargs)
+    name=$(ps -p "$pid" -o $PS_COMM= 2>/dev/null | xargs)
     uid=$(ps -p "$pid" -o uid= 2>/dev/null | xargs)
     ppid=$(ps -p "$pid" -o ppid= 2>/dev/null | xargs)
 
@@ -54,7 +55,7 @@ protection_reason() {
         echo "PID $pid is a core system process"
     elif (( pid == $$ || pid == PPID )); then
         echo "PID $pid is this application (or its parent)"
-    elif [[ "$ppid" == "2" ]]; then
+    elif is_linux && [[ "$ppid" == "2" ]]; then
         echo "PID $pid is a kernel thread"
     elif [[ "$uid" == "0" && $EUID -ne 0 ]]; then
         echo "PID $pid is owned by root and you do not have permission"
@@ -90,7 +91,7 @@ terminate_process() {
             return 1
         fi
         echo "Processes named '$input':"
-        ps -p "$(paste -sd, <<< "$matches")" -o pid,ppid,user,%cpu,%mem,comm
+        ps_detail "$(echo "$matches" | tr '\n' ',' | sed 's/,$//')"
         read -r -p "Enter the exact PID to terminate: " input || return 1
         if [[ ! "$input" =~ ^[0-9]+$ ]]; then
             echo "Error: '$input' is not a valid PID."
@@ -111,8 +112,8 @@ terminate_process() {
         return 1
     fi
 
-    name=$(ps -p "$pid" -o comm= | xargs)
-    ps -p "$pid" -o pid,ppid,user,%cpu,%mem,etime,comm
+    name=$(ps -p "$pid" -o $PS_COMM= | xargs)
+    ps_detail "$pid"
     if ! confirm "Terminate '$name' (PID $pid)?"; then
         echo "Termination cancelled."
         log_event INFO "Termination of $name (PID $pid) cancelled by user"

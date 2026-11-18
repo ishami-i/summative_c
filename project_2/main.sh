@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Linux System Health and Resource Monitoring Manager - interactive menu.
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
@@ -38,7 +38,12 @@ run_script() {
 pause() { read -r -p "Press Enter to return to the menu..." _ || true; }
 
 main() {
-    log_event INFO "Application started"
+    log_event INFO "Application started on $OS_TYPE"
+    echo "Detected system: $(get_os_info) ($OS_TYPE)"
+    if ! is_linux && ! is_macos; then
+        echo "Warning: $OS_TYPE is not fully supported. Linux and macOS are supported;"
+        echo "         CPU, memory and some other features may be unavailable here."
+    fi
     local choice
     while true; do
         print_menu
