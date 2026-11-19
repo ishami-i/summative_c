@@ -1,4 +1,4 @@
-STUDENT_DB_V1
+STUDENT_DB_V
 6
 S|1002|Brian|Mugisha|Computer Science|2|3
 C|CS101|Programming in C|45.00|100.00
