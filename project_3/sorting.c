@@ -1,18 +1,16 @@
 #include "main.h"
 
-/* ---------- comparison functions (negative / 0 / positive like strcmp) ---------- */
-
 int cmp_by_id(const Student *a, const Student *b) {
     return (a->id > b->id) - (a->id < b->id);
 }
 
-/* Alphabetical: last name, then first name (case-insensitive). */
+// Alphabetical: last name, then first name (case-insensitive).
 int cmp_by_name(const Student *a, const Student *b) {
     int c = str_icmp(a->last_name, b->last_name);
     return c != 0 ? c : str_icmp(a->first_name, b->first_name);
 }
 
-/* Students without courses have no average and rank below everyone else. */
+// Students without courses have no average and rank below everyone else.
 int cmp_by_average(const Student *a, const Student *b) {
     double x = -1.0, y = -1.0;
     student_average_percent(a, &x);
@@ -25,8 +23,10 @@ int cmp_by_program(const Student *a, const Student *b) {
     return c != 0 ? c : cmp_by_id(a, b);
 }
 
-/* Manual insertion sort (stable, no qsort). Records are moved as whole structs;
- * each struct only holds a pointer to its course array, so nothing is duplicated. */
+/* 
+Manual insertion sort (stable, no qsort). Records are moved as whole structs;
+each struct only holds a pointer to its course array, so nothing is duplicated. 
+*/
 void insertion_sort_students(Student *a, int n, StudentCmp cmp, int ascending) {
     for (int i = 1; i < n; i++) {
         Student key = a[i];

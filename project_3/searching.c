@@ -1,14 +1,16 @@
 #include "main.h"
 
-/* Linear search by ID. Returns the index or -1. */
+// Linear search by ID. Returns the index or -1.
 int search_student_by_id(const StudentDB *db, int id) {
     for (int i = 0; i < db->count; i++)
         if (db->records[i].id == id) return i;
     return -1;
 }
 
-/* Case-insensitive search of first OR last name (partial match allowed).
- * Fills `hits` (size >= db->count) with indexes; returns how many matched. */
+/* 
+Case-insensitive search of first OR last name (partial match allowed).
+Fills `hits` (size >= db->count) with indexes; returns how many matched. 
+*/
 int search_students_by_name(const StudentDB *db, const char *query, int *hits) {
     int n = 0;
     for (int i = 0; i < db->count; i++) {
@@ -19,7 +21,7 @@ int search_students_by_name(const StudentDB *db, const char *query, int *hits) {
     return n;
 }
 
-/* Case-insensitive search by programme of study (partial match allowed). */
+// Case-insensitive search by programme of study (partial match allowed).
 int search_students_by_program(const StudentDB *db, const char *query, int *hits) {
     int n = 0;
     for (int i = 0; i < db->count; i++)

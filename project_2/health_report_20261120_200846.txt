@@ -1,0 +1,31 @@
+====== System Health Report ========
+Generated on: 2026-11-20 20:08:46 CAT
+Hostname: ISHAMI-2.local
+Operating System: macOS 13.7.8
+------------------------------------
+CPU Information:
+Model name: Intel(R) Core(TM) i7-7567U CPU @ 3.50GHz
+Physical cores: 2
+Logical CPUs: 4
+Current CPU usage: 22.1%
+Load average: 2.49 4.36 4.62
+Top 5 CPU-consuming processes:
+  PID  PPID USER              %CPU %MEM COMMAND
+12667   368 mac               14.7  0.2 screencapture   
+12675     1 mac                9.8  0.2 VTEncoderXPCServ
+  159     1 root               5.4  0.1 tccd            
+  198     1 _coreaudiod        4.5  0.1 coreaudiod      
+  129     1 root               3.5  0.0 launchservicesd 
+------------------------------------
+Memory Information:
+Total: 16384MB | Used: 10768MB | Available: 5616MB
+Memory utilization: 65.7%
+------------------------------------
+Disk Usage Information:
+Filesystem                       Size     Used    Avail  Use%  Mount
+/dev/disk1s5s1                 233.5G     8.7G    72.2G   11%  /
+/dev/disk1s1                   233.5G   148.4G    72.2G   68%  /System/Volumes/Data
+/Users/mac/Applications/Visual Studio Code.app   233.5G   147.9G    73.6G   67%  /private/var/folders/pl/10c6d9mj7hs157httr5yzmlw0000gn/T/AppTranslocation/87D11B6D-0F3D-40D9-A70E-BE997F37A47B
+------------------------------------
+System Uptime: 10 hours, 38 minutes
+====================================

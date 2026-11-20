@@ -3,16 +3,18 @@
 #include <errno.h>
 #include <sys/stat.h>
 
-/* ------------------------------------------------------------------ */
-/* File format (plain text, one record per line):                      */
-/*   STUDENT_DB_V1                                                     */
-/*   <number of students>                                              */
-/*   S|id|first|last|programme|year|number_of_courses                   */
-/*   C|code|course name|marks|max      (repeated number_of_courses)    */
-/* ------------------------------------------------------------------ */
+/*
+File format (plain text, one record per line):                     
+STUDENT_DB_V1                                                    
+<number of students>   
+S|id|first|last|programme|year|number_of_courses                  
+C|code|course name|marks|max      (repeated number_of_courses)   
+*/
 
-/* Save everything to a temp file first, then rename it over the real file,
- * so a failure in the middle can never destroy the previous save. */
+/* 
+Save everything to a temp file first, then rename it over the real file,
+so a failure in the middle can never destroy the previous save. 
+ */
 Status write_records_file(const StudentDB *db) {
     if (mkdir(DATA_DIR, 0755) != 0 && errno != EEXIST) {
         perror("Cannot create data directory");
@@ -48,9 +50,7 @@ Status write_records_file(const StudentDB *db) {
     return OK;
 }
 
-/* ---------- loading helpers ---------- */
-
-/* Split `line` in place at FIELD_SEP. Returns the field count, or -1 if more than `max`. */
+// Split `line` in place at FIELD_SEP. Returns the field count, or -1 if more than `max`.
 static int split_fields(char *line, char *fields[], int max) {
     int n = 0;
     fields[n++] = line;
@@ -88,7 +88,7 @@ static int copy_text(char *dst, size_t size, const char *src) {
     return 1;
 }
 
-/* Parse the whole stream into `tmp`. On failure `*msg` and `*lineno` describe the problem. */
+// Parse the whole stream into `tmp`. On failure `*msg` and `*lineno` describe the problem.
 static Status parse_stream(FILE *fp, StudentDB *tmp, int *lineno, const char **msg) {
     char line[512], *f[8];
     Student cur;
@@ -98,7 +98,7 @@ static Status parse_stream(FILE *fp, StudentDB *tmp, int *lineno, const char **m
 
 #define FAIL(code, text) do { st = (code); *msg = (text); goto fail; } while (0)
 
-    if (!fgets(line, sizeof line, fp)) return OK;             /* empty file = empty database */
+    if (!fgets(line, sizeof line, fp)) return OK;        
     *lineno = 1;
     trim_string(line);
     if (strcmp(line, FILE_HEADER) != 0) FAIL(ERR_INVALID, "unrecognised file header");
@@ -118,7 +118,7 @@ static Status parse_stream(FILE *fp, StudentDB *tmp, int *lineno, const char **m
 
         if (strcmp(f[0], "S") == 0) {
             if (n != 7) FAIL(ERR_INVALID, "student record must have 7 fields");
-            if (have) {                                       /* finish the previous student */
+            if (have) {                                       
                 if (cur.number_of_courses != declared) FAIL(ERR_INVALID, "course count does not match");
                 st = db_add_student(tmp, &cur);
                 if (st != OK) FAIL(st, "invalid or duplicate student record");
@@ -158,12 +158,12 @@ static Status parse_stream(FILE *fp, StudentDB *tmp, int *lineno, const char **m
     return OK;
 
 fail:
-    student_free(&cur);          /* cur is only non-empty if it was not handed to the database */
+    student_free(&cur);      
     return st;
 #undef FAIL
 }
 
-/* Load into a temporary database; replace the current one only if everything parsed. */
+// Load into a temporary database; replace the current one only if everything parsed. 
 Status read_records_file(StudentDB *db) {
     FILE *fp = fopen(DATA_FILE, "r");
     if (!fp) {

@@ -30,17 +30,18 @@ summative_c/
 │   ├── health_report.sh  activity_history.sh  clear_activity.sh
 │   └── project_description.md
 ├── project_3/                 Student records system (C)
+│   ├── description.md
 │   ├── main.c  main.h  student_operations.c  searching.c  sorting.c
 │   ├── display_record.c  academic_performance.c  file_io.c  validation.c
 │   ├── Makefile  run.sh
-│   ├── data/students.txt
-│   └── docs/TECHNICAL_DOCUMENTATION.md  docs/sample_run.txt
+│   └── data/students.txt
 ├── project_4/                 Sales transaction system (C)
 │   ├── main.c  main.h  transaction_management.c  transactions_processing.c
 │   ├── callback_functions.c  search_sort.c  file_handling.c  utils.c
 │   └── run.sh  transactions.txt  Documentation.md
 └── project_5/                 Multi-threaded document search (C)
-    ├── main.c  run.sh  README.md
+    ├── description.md
+    ├── main.c  run.sh
     ├── data/                  input text files
     └── report/                generated reports
 ```
@@ -118,7 +119,7 @@ make && ./student_system
 make debug        # AddressSanitizer + UBSan build
 ```
 
-**Docs:** [`project_3/docs/TECHNICAL_DOCUMENTATION.md`](project_3/docs/TECHNICAL_DOCUMENTATION.md) and a captured session in [`project_3/docs/sample_run.txt`](project_3/docs/sample_run.txt).
+**Docs:** [`project_3/description.md`](project_3/description.md) – structure, data structures, memory management, calculations, file format, validation rules and testing.
 
 ---
 
@@ -151,7 +152,7 @@ gcc -Wall -Wextra -std=c11 -pthread -o document_analyzer main.c
 ```
 
 Reports are written to `report/<input name>_report.txt` with the line count, number of occurrences and matching line numbers. The program exits with code 1 if any file failed.
-**Docs:** [`project_5/README.md`](project_5/README.md).
+**Docs:** [`project_5/description.md`](project_5/description.md).
 
 ---
 
@@ -164,6 +165,12 @@ Reports are written to `report/<input name>_report.txt` with the line count, num
 | `-Wpedantic` | Strict standard conformance (project 3) |
 | `-pthread` | Link POSIX threads (project 5) |
 | `-fsanitize=address,undefined` | Memory and undefined-behaviour checks (`make debug`, project 3) |
+
+---
+
+## Demo video 
+
+![Demo video](https://img.youtube.com/vi/gJKquugI6Jg/0.jpg)([click to watch](https://www.youtube.com/watch?v=gJKquugI6Jg))
 
 ---
 

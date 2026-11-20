@@ -1,6 +1,6 @@
 #include "main.h"
 
-/* Menu table: each entry pairs a label with the function that handles it. */
+// Menu table: each entry pairs a label with the function that handles it. 
 static const MenuItem MENU[] = {
     { "Register a new student",              register_student },
     { "Display all students",                display_all_students },
@@ -34,7 +34,7 @@ int main(void) {
         return 1;
     }
 
-    /* load previously saved records; a missing file just means a fresh start */
+    // load previously saved records; a missing file just means a fresh start
     Status st = read_records_file(&db);
     if (st != OK && st != ERR_NOT_FOUND)
         printf("Starting with an empty database. Note: saving will overwrite %s.\n", DATA_FILE);
@@ -42,7 +42,7 @@ int main(void) {
     for (;;) {
         int choice;
         print_menu(&db);
-        if (!read_int("Select an option: ", 0, MENU_SIZE, &choice)) break;   /* EOF = exit */
+        if (!read_int("Select an option: ", 0, MENU_SIZE, &choice)) break;
         if (choice == 0) break;
         MENU[choice - 1].handler(&db);
     }

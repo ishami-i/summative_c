@@ -1,8 +1,6 @@
 #include "main.h"
 
-/* ------------------------------------------------------------------ */
-/* Core (non-interactive) operations                                   */
-/* ------------------------------------------------------------------ */
+// Core (non-interactive) operations 
 
 const char *status_message(Status s) {
     switch (s) {
@@ -17,7 +15,7 @@ const char *status_message(Status s) {
     return "unknown error";
 }
 
-/* Allocate the initial student array (calloc zero-fills it). */
+// Allocate the initial student array (calloc zero-fills it).
 Status db_init(StudentDB *db) {
     db->count = 0;
     db->modified = 0;
@@ -27,7 +25,7 @@ Status db_init(StudentDB *db) {
     return OK;
 }
 
-/* Release one student's course array. */
+// Release one student's course array. 
 void student_free(Student *s) {
     free(s->courses);
     s->courses = NULL;
@@ -35,7 +33,7 @@ void student_free(Student *s) {
     s->course_capacity = 0;
 }
 
-/* Release the whole database (every course array, then the student array). */
+// Release the whole database (every course array, then the student array). 
 void db_free(StudentDB *db) {
     if (!db) return;
     for (int i = 0; i < db->count; i++) student_free(&db->records[i]);
@@ -44,7 +42,7 @@ void db_free(StudentDB *db) {
     db->count = db->capacity = 0;
 }
 
-/* Check one course record. */
+// Check one course record.
 Status course_validate(const Course *c) {
     if (!is_valid_course_code(c->course_code))              return ERR_INVALID;
     if (!is_valid_text(c->course_name, COURSE_NAME_LEN))    return ERR_INVALID;
@@ -54,7 +52,7 @@ Status course_validate(const Course *c) {
     return OK;
 }
 
-/* Check the personal fields of one student (courses are validated when added). */
+// Check the personal fields of one student 
 Status student_validate(const Student *s) {
     if (s->id < 1 || s->id > MAX_STUDENT_ID)                 return ERR_INVALID;
     if (!is_valid_text(s->first_name, NAME_LEN))             return ERR_INVALID;
@@ -64,14 +62,14 @@ Status student_validate(const Student *s) {
     return OK;
 }
 
-/* Index of a course inside a student's record, or -1. */
+// Index of a course inside a student's record, or -1. 
 int student_find_course(const Student *s, const char *code) {
     for (int i = 0; i < s->number_of_courses; i++)
         if (str_icmp(s->courses[i].course_code, code) == 0) return i;
     return -1;
 }
 
-/* Append a validated course; the course array grows with realloc. */
+// Append a validated course; the course array grows with realloc. 
 Status student_add_course(Student *s, const Course *c) {
     Status st = course_validate(c);
     if (st != OK) return st;
@@ -89,7 +87,7 @@ Status student_add_course(Student *s, const Course *c) {
     return OK;
 }
 
-/* Change the marks of an existing course. */
+// Change the marks of an existing course. 
 Status student_update_marks(Student *s, const char *code, float marks) {
     int idx = student_find_course(s, code);
     if (idx < 0) return ERR_NOT_FOUND;
@@ -98,7 +96,7 @@ Status student_update_marks(Student *s, const char *code, float marks) {
     return OK;
 }
 
-/* Add a student to the database (grows with realloc). On OK the database owns s->courses. */
+// Add a student to the database (grows with realloc). On OK the database owns s->courses. 
 Status db_add_student(StudentDB *db, const Student *s) {
     Status st = student_validate(s);
     if (st != OK) return st;
@@ -116,7 +114,7 @@ Status db_add_student(StudentDB *db, const Student *s) {
     return OK;
 }
 
-/* Remove a student, free its courses, close the gap and shrink the array if it is mostly empty. */
+// Remove a student, free its courses, close the gap and shrink the array if it is mostly empty.
 Status db_delete_student(StudentDB *db, int id) {
     int idx = search_student_by_id(db, id);
     if (idx < 0) return ERR_NOT_FOUND;
@@ -134,11 +132,10 @@ Status db_delete_student(StudentDB *db, int id) {
     return OK;
 }
 
-/* ------------------------------------------------------------------ */
-/* Interactive helpers                                                 */
-/* ------------------------------------------------------------------ */
 
-/* Ask for one course (code not already used by `s`, marks within range). 0 on EOF. */
+// Interactive helpers 
+
+// Ask for one course (code not already used by `s`, marks within range). 0 on EOF.
 static int read_course(const Student *s, Course *c) {
     char prompt[96];
     memset(c, 0, sizeof *c);
@@ -157,13 +154,13 @@ static int read_course(const Student *s, Course *c) {
 
     snprintf(prompt, sizeof prompt, "  Marks obtained (0 - %g): ", c->maximum_marks);
     if (!read_float(prompt, 0.0, c->maximum_marks, &c->marks_obtained)) return 0;
-    /* keep two decimals so that saving and loading round-trip exactly */
+    // keep two decimals so that saving and loading round-trip exactly
     c->marks_obtained = (float)((long)(c->marks_obtained * 100.0 + 0.5)) / 100.0f;
     if (c->marks_obtained > c->maximum_marks) c->marks_obtained = c->maximum_marks;
     return 1;
 }
 
-/* Prompt showing the current text; empty input keeps it. Returns 0 on EOF. */
+// Prompt showing the current text; empty input keeps it. Returns 0 on EOF. 
 static int prompt_keep_text(const char *label, char *field, size_t size) {
     char buf[256], prompt[200];
     for (;;) {
@@ -180,7 +177,7 @@ static int prompt_keep_text(const char *label, char *field, size_t size) {
     }
 }
 
-/* Ask for a student ID and look it up. Returns the index, or -1 (message already printed). */
+// Ask for a student ID and look it up. Returns the index, or -1 (message already printed). 
 static int ask_student_index(const StudentDB *db, const char *prompt) {
     int id;
     if (db->count == 0) { printf("No students registered yet.\n"); return -1; }
@@ -190,9 +187,7 @@ static int ask_student_index(const StudentDB *db, const char *prompt) {
     return idx;
 }
 
-/* ------------------------------------------------------------------ */
-/* Menu handlers                                                       */
-/* ------------------------------------------------------------------ */
+// Menu handlers 
 
 void register_student(StudentDB *db) {
     Student s;

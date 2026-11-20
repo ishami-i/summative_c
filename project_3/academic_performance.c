@@ -1,17 +1,19 @@
 #include "main.h"
 
-/* Percentage score of one course. */
+// Percentage score of one course.
 double course_percent(const Course *c) {
     return c->maximum_marks > 0.0f ? (double)c->marks_obtained / c->maximum_marks * 100.0 : 0.0;
 }
 
-/* A course is passed with >= 50% of its maximum marks. */
+// A course is passed with >= 50% of its maximum marks.
 int course_passed(const Course *c) {
     return (double)c->marks_obtained * 100.0 >= PASS_PERCENT * (double)c->maximum_marks;
 }
 
-/* Overall average = total marks obtained / total maximum marks * 100.
- * Returns 0 (and leaves *out untouched) when there are no courses: no division by zero. */
+/*
+Overall average = total marks obtained / total maximum marks * 100.
+Returns 0 (and leaves *out untouched) when there are no courses: no division by zero. 
+ */
 int student_average_percent(const Student *s, double *out) {
     double got = 0.0, max = 0.0;
     for (int i = 0; i < s->number_of_courses; i++) {
@@ -60,13 +62,13 @@ void generate_report(StudentDB *db) {
         const Student *s = &db->records[i];
         double avg;
 
-        /* students per programme */
+        // students per programme
         int p = 0;
         while (p < nps && str_icmp(ps[p].programme, s->program_study) != 0) p++;
         if (p == nps) { snprintf(ps[nps].programme, sizeof ps[nps].programme, "%s", s->program_study); nps++; }
         ps[p].students++;
 
-        /* per-student statistics */
+        // per-student statistics
         if (student_average_percent(s, &avg)) {
             if (best < 0 || avg > best_avg)   { best = i;  best_avg = avg; }
             if (worst < 0 || avg < worst_avg) { worst = i; worst_avg = avg; }
@@ -75,7 +77,7 @@ void generate_report(StudentDB *db) {
             no_courses++;
         }
 
-        /* per-course statistics */
+        // per-course statistics
         for (int j = 0; j < s->number_of_courses; j++) {
             const Course *c = &s->courses[j];
             all_got += c->marks_obtained;

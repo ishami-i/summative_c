@@ -1,2 +1,79 @@
-2026-11-18 13:23:31 CAT [INFO] Activity log cleared by user
-2026-11-18 13:23:36 CAT [INFO] Application exited
+2026-11-20 19:41:19 CAT [INFO] Activity log cleared by user
+2026-11-20 19:41:23 CAT [INFO] Application exited
+2026-11-20 20:05:28 CAT [INFO] Application started on Darwin
+2026-11-20 20:05:32 CAT [INFO] Menu option 1 selected
+2026-11-20 20:05:32 CAT [INFO] Displayed system information
+2026-11-20 20:05:45 CAT [INFO] Menu option 2 selected
+2026-11-20 20:05:52 CAT [INFO] CPU monitoring started (threshold 10%)
+2026-11-20 20:05:55 CAT [INFO] CPU usage 17.1%, load average: 4.33 5.72 5.06
+2026-11-20 20:05:55 CAT [WARNING] CPU utilization above 10% (current 17.1%). Top processes:
+          PID  PPID USER              %CPU %MEM COMMAND
+        12667   368 mac               16.8  0.3 screencapture   
+        12675     1 mac               10.7  0.7 VTEncoderXPCServ
+          353     1 mac                9.1  0.9 Terminal        
+          198     1 _coreaudiod        4.6  0.1 coreaudiod      
+          158     1 _windowserver      4.3  0.5 WindowServer    
+2026-11-20 20:06:04 CAT [INFO] CPU usage 35.5%, load average: 4.06 5.64 5.04
+2026-11-20 20:06:04 CAT [WARNING] CPU utilization above 10% (current 35.5%). Top processes:
+          PID  PPID USER              %CPU %MEM COMMAND
+          158     1 _windowserver     27.9  0.5 WindowServer    
+        12667   368 mac               22.5  0.3 screencapture   
+          353     1 mac               15.5  0.9 Terminal        
+        12675     1 mac               11.7  0.7 VTEncoderXPCServ
+        12662     1 mac                7.3  0.4 screencaptureui 
+2026-11-20 20:06:13 CAT [INFO] CPU usage 35.5%, load average: 4.05 5.58 5.03
+2026-11-20 20:06:13 CAT [WARNING] CPU utilization above 10% (current 35.5%). Top processes:
+          PID  PPID USER              %CPU %MEM COMMAND
+         5141   361 mac               25.5  2.9 Brave Browser He
+        12667   368 mac               16.3  0.2 screencapture   
+          353     1 mac               13.7  1.1 Terminal        
+        12675     1 mac               10.1  0.3 VTEncoderXPCServ
+          158     1 _windowserver      8.9  0.5 WindowServer    
+2026-11-20 20:06:22 CAT [INFO] CPU usage 33.9%, load average: 4.32 5.60 5.04
+2026-11-20 20:06:22 CAT [WARNING] CPU utilization above 10% (current 33.9%). Top processes:
+          PID  PPID USER              %CPU %MEM COMMAND
+         5189   361 mac               19.6  2.5 Brave Browser He
+        12667   368 mac               18.3  0.2 screencapture   
+          158     1 _windowserver     13.5  0.5 WindowServer    
+          353     1 mac               11.7  1.1 Terminal        
+         5141   361 mac                9.9  2.9 Brave Browser He
+2026-11-20 20:06:31 CAT [INFO] CPU monitoring stopped
+2026-11-20 20:06:38 CAT [INFO] Menu option 3 selected
+2026-11-20 20:06:40 CAT [INFO] Memory monitoring started (threshold 10%)
+2026-11-20 20:06:40 CAT [INFO] Memory: Total: 16384MB | Used: 10848MB | Available: 5536MB | Utilization: 66.2%
+2026-11-20 20:06:40 CAT [WARNING] Memory utilization above 10% (current 66.2%)
+2026-11-20 20:06:45 CAT [INFO] Memory: Total: 16384MB | Used: 10833MB | Available: 5551MB | Utilization: 66.1%
+2026-11-20 20:06:45 CAT [WARNING] Memory utilization above 10% (current 66.1%)
+2026-11-20 20:06:50 CAT [INFO] Memory: Total: 16384MB | Used: 10890MB | Available: 5494MB | Utilization: 66.5%
+2026-11-20 20:06:50 CAT [WARNING] Memory utilization above 10% (current 66.5%)
+2026-11-20 20:06:55 CAT [INFO] Memory: Total: 16384MB | Used: 10747MB | Available: 5637MB | Utilization: 65.6%
+2026-11-20 20:06:55 CAT [WARNING] Memory utilization above 10% (current 65.6%)
+2026-11-20 20:06:56 CAT [INFO] Memory monitoring stopped
+2026-11-20 20:07:04 CAT [INFO] Menu option 4 selected
+2026-11-20 20:07:07 CAT [INFO] Disk monitoring started (threshold 10%)
+2026-11-20 20:07:07 CAT [WARNING] Disk utilization above 10% on /dev/disk1s5s1 (/): 11%
+2026-11-20 20:07:07 CAT [WARNING] Disk utilization above 10% on /dev/disk1s1 (/System/Volumes/Data): 68%
+2026-11-20 20:07:07 CAT [WARNING] Disk utilization above 10% on /Users/mac/Applications/Visual Studio Code.app (/private/var/folders/pl/10c6d9mj7hs157httr5yzmlw0000gn/T/AppTranslocation/87D11B6D-0F3D-40D9-A70E-BE997F37A47B): 67%
+2026-11-20 20:07:12 CAT [WARNING] Disk utilization above 10% on /dev/disk1s5s1 (/): 11%
+2026-11-20 20:07:12 CAT [WARNING] Disk utilization above 10% on /dev/disk1s1 (/System/Volumes/Data): 68%
+2026-11-20 20:07:12 CAT [WARNING] Disk utilization above 10% on /Users/mac/Applications/Visual Studio Code.app (/private/var/folders/pl/10c6d9mj7hs157httr5yzmlw0000gn/T/AppTranslocation/87D11B6D-0F3D-40D9-A70E-BE997F37A47B): 67%
+2026-11-20 20:07:17 CAT [WARNING] Disk utilization above 10% on /dev/disk1s5s1 (/): 11%
+2026-11-20 20:07:17 CAT [WARNING] Disk utilization above 10% on /dev/disk1s1 (/System/Volumes/Data): 68%
+2026-11-20 20:07:17 CAT [WARNING] Disk utilization above 10% on /Users/mac/Applications/Visual Studio Code.app (/private/var/folders/pl/10c6d9mj7hs157httr5yzmlw0000gn/T/AppTranslocation/87D11B6D-0F3D-40D9-A70E-BE997F37A47B): 67%
+2026-11-20 20:07:22 CAT [WARNING] Disk utilization above 10% on /dev/disk1s5s1 (/): 11%
+2026-11-20 20:07:22 CAT [WARNING] Disk utilization above 10% on /dev/disk1s1 (/System/Volumes/Data): 68%
+2026-11-20 20:07:22 CAT [WARNING] Disk utilization above 10% on /Users/mac/Applications/Visual Studio Code.app (/private/var/folders/pl/10c6d9mj7hs157httr5yzmlw0000gn/T/AppTranslocation/87D11B6D-0F3D-40D9-A70E-BE997F37A47B): 67%
+2026-11-20 20:07:25 CAT [INFO] Disk monitoring stopped
+2026-11-20 20:07:31 CAT [INFO] Menu option 5 selected
+2026-11-20 20:07:32 CAT [INFO] Viewed running processes
+2026-11-20 20:07:56 CAT [INFO] Searched for process name 'brave' (found)
+2026-11-20 20:08:10 CAT [INFO] Menu option 6 selected
+2026-11-20 20:08:18 CAT [INFO] Termination of Siri (PID 675) cancelled by user
+2026-11-20 20:08:27 CAT [INFO] Menu option 6 selected
+2026-11-20 20:08:38 CAT [INFO] Process Siri (PID 675) terminated (SIGTERM)
+2026-11-20 20:08:44 CAT [INFO] Menu option 7 selected
+2026-11-20 20:08:50 CAT [INFO] Health report generated: /Users/mac/Desktop/summative_c/project_2/health_report_20261120_200846.txt
+2026-11-20 20:09:04 CAT [INFO] Menu option 8 selected
+2026-11-20 20:09:06 CAT [INFO] Viewed activity history
+2026-11-20 20:09:12 CAT [INFO] Menu option 9 selected
+2026-11-20 20:09:21 CAT [INFO] Application exited

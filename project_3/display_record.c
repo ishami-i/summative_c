@@ -1,6 +1,6 @@
 #include "main.h"
 
-/* Detailed record of one student, including every course. */
+// Detailed record of one student, including every course.
 void display_student_record(const Student *s) {
     double avg;
     printf("\n------------------------------------------------------------\n");
@@ -22,7 +22,7 @@ void display_student_record(const Student *s) {
     }
 }
 
-/* Per-course results with pass/fail, plus the overall average. */
+// Per-course results with pass/fail, plus the overall average.
 void display_academic_performance(const Student *s) {
     double avg;
     printf("\nAcademic performance: %s %s (ID %d, %s)\n",
@@ -42,7 +42,7 @@ void display_academic_performance(const Student *s) {
         printf("  Overall average: %.2f%% -> %s\n", avg, avg >= PASS_PERCENT ? "PASSING" : "FAILING");
 }
 
-/* One-line-per-student table. */
+// One-line-per-student table.
 void display_student_table(const StudentDB *db) {
     double avg;
     printf("\n%-10s %-14s %-14s %-24s %4s %7s %9s\n",

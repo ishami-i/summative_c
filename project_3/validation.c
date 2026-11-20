@@ -4,11 +4,9 @@
 #include <errno.h>
 #include <unistd.h>
 
-/* ------------------------------------------------------------------ */
-/* Text helpers                                                        */
-/* ------------------------------------------------------------------ */
+// Text helpers  
 
-/* Remove leading and trailing whitespace in place. */
+// Remove leading and trailing whitespace in place.
 void trim_string(char *s) {
     size_t len = strlen(s);
     while (len > 0 && isspace((unsigned char)s[len - 1])) s[--len] = '\0';
@@ -27,7 +25,7 @@ int str_icmp(const char *a, const char *b) {
     return tolower((unsigned char)*a) - tolower((unsigned char)*b);
 }
 
-/* Case-insensitive substring test (manual implementation, no strstr). */
+// Case-insensitive substring test (manual implementation, no strstr). 
 int str_icontains(const char *haystack, const char *needle) {
     size_t n = strlen(needle);
     if (n == 0) return 1;
@@ -41,7 +39,7 @@ int str_icontains(const char *haystack, const char *needle) {
     return 0;
 }
 
-/* Non-empty, shorter than `size`, no separator and no control characters. */
+// Non-empty, shorter than `size`, no separator and no control characters. 
 int is_valid_text(const char *s, size_t size) {
     size_t len = strlen(s);
     if (len == 0 || len >= size) return 0;
@@ -52,7 +50,7 @@ int is_valid_text(const char *s, size_t size) {
     return !isspace((unsigned char)s[0]) && !isspace((unsigned char)s[len - 1]);
 }
 
-/* Letters and digits only, 1..CODE_LEN-1 characters. */
+// Letters and digits only, 1..CODE_LEN-1 characters. 
 int is_valid_course_code(const char *s) {
     size_t len = strlen(s);
     if (len == 0 || len >= CODE_LEN) return 0;
@@ -61,11 +59,9 @@ int is_valid_course_code(const char *s) {
     return 1;
 }
 
-/* ------------------------------------------------------------------ */
-/* Safe input (fgets based: no scanf, no leftover newlines)            */
-/* ------------------------------------------------------------------ */
+// Safe input (fgets based: no scanf, no leftover newlines)        
 
-/* Reads one line. Returns 1 on success, 0 on end of input (EOF). */
+// Reads one line. Returns 1 on success, 0 on end of input (EOF). 
 int read_line(const char *prompt, char *buf, size_t size) {
     static int interactive = -1;
     if (interactive < 0) interactive = isatty(STDIN_FILENO);
@@ -85,7 +81,7 @@ int read_line(const char *prompt, char *buf, size_t size) {
     return 1;
 }
 
-/* Reads an integer in [min, max]; repeats until valid. Returns 0 on EOF. */
+// Reads an integer in [min, max]; repeats until valid. Returns 0 on EOF.
 int read_int(const char *prompt, int min, int max, int *out) {
     char buf[64];
     for (;;) {
@@ -102,7 +98,7 @@ int read_int(const char *prompt, int min, int max, int *out) {
     }
 }
 
-/* Reads a real number in [min, max]; rejects text, nan and inf. Returns 0 on EOF. */
+// Reads a real number in [min, max]; rejects text, nan and inf. Returns 0 on EOF. 
 int read_float(const char *prompt, double min, double max, float *out) {
     char buf[64];
     for (;;) {
@@ -119,7 +115,7 @@ int read_float(const char *prompt, double min, double max, float *out) {
     }
 }
 
-/* Reads text (spaces allowed) that fits in `size` bytes. Returns 0 on EOF. */
+// Reads text (spaces allowed) that fits in `size` bytes. Returns 0 on EOF. 
 int read_text(const char *prompt, char *buf, size_t size) {
     char tmp[256];
     for (;;) {
@@ -134,7 +130,7 @@ int read_text(const char *prompt, char *buf, size_t size) {
     }
 }
 
-/* Reads a course code and converts it to upper case. Returns 0 on EOF. */
+// Reads a course code and converts it to upper case. Returns 0 on EOF.
 int read_course_code(const char *prompt, char *buf, size_t size) {
     char tmp[64];
     for (;;) {
@@ -149,7 +145,7 @@ int read_course_code(const char *prompt, char *buf, size_t size) {
     }
 }
 
-/* y/n question. Returns 1 only for an explicit yes. */
+// y/n question. Returns 1 only for an explicit yes.
 int confirm(const char *prompt) {
     char buf[16];
     if (!read_line(prompt, buf, sizeof buf)) return 0;
